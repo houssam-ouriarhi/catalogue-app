@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./products-list.component.css'],
 })
 export class ProductsListComponent {
+  public isAdmin!: boolean;
   public sub$!: Subscription;
   public products!: Array<Product>;
   public isLoading: boolean = true;
@@ -24,13 +26,15 @@ export class ProductsListComponent {
 
   constructor(
     private productService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
     this.searchFormGroup = this.fb.group({
       keyword: this.fb.control(null),
     });
+    this.isAdmin = this.authenticationService.hasRole('ADMIN');
     this.getPageProducts();
   }
   public getAll() {

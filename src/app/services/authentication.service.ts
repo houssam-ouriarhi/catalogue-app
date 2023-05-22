@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppUser } from '../models/user.model';
 import { UUID } from 'angular2-uuid';
 import { Observable, of, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AuthenticationService {
   users: AppUser[] = [];
   authenticatedUser: AppUser | undefined;
 
-  constructor() {
+  constructor(private router: Router) {
     this.users.push({
       userId: UUID.UUID(),
       username: 'admin',
@@ -53,6 +54,7 @@ export class AuthenticationService {
   public logout(): boolean {
     this.authenticatedUser = undefined;
     localStorage.removeItem('authUser');
+    this.router.navigateByUrl('/login');
     return true;
   }
 

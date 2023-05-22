@@ -31,7 +31,7 @@
             <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Promotion</th>
-            <th scope="col">Actions</th>
+            <th *ngIf="isAdmin" scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -41,21 +41,30 @@
             <td>{{ product.price }}</td>
             <td>
               <button
+                *ngIf="isAdmin"
                 (click)="handelPromotion(product.id)"
                 class="btn"
-                *ngIf="product.promotion == true"
               >
-                <i class="bi bi-toggle-on text-success"></i>
+                <i
+                  [ngClass]="
+                    product.promotion
+                      ? 'bi-toggle-on text-success'
+                      : 'bi-toggle-off text-danger'
+                  "
+                  class="bi"
+                ></i>
               </button>
-              <button
-                (click)="handelPromotion(product.id)"
-                class="btn"
-                *ngIf="product.promotion == false"
-              >
-                <i class="bi bi-toggle-off text-danger"></i>
-              </button>
+              <i
+                *ngIf="!isAdmin"
+                [ngClass]="
+                  product.promotion
+                    ? 'bi-check-circle-fill text-success'
+                    : 'bi-check-circle-fill text-danger'
+                "
+                class="bi"
+              ></i>
             </td>
-            <td>
+            <td *ngIf="isAdmin">
               <button
                 (click)="handelEdit(product)"
                 class="btn btn-warning mx-2"
