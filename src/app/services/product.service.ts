@@ -1,4 +1,4 @@
-import { Product } from './../models/product';
+import { PageProduct, Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { Observable, of, throwError } from 'rxjs';
@@ -47,7 +47,24 @@ export class ProductService {
   public getAll(): Observable<Product[]> {
     return of(this.products);
   }
-
+  public getPageProducts(page: number, size: number): Observable<PageProduct> {
+    /**
+     * Exemple: if we have a 50 products on the list
+     * and we want just 5 products in the pages
+     *  totalPage is 50/5 = 10
+     * se there is 10 pages
+     */
+    let totalPages = ~~(this.products.length / size);
+    let index = page * size;
+    if (this.products.length % size != 0) totalPages++;
+    let pageProducts = this.products.slice(index, index + size);
+    return of({
+      page: page,
+      size: size,
+      totalPages: totalPages,
+      products: pageProducts,
+    });
+  }
   // need to be verified and add redirection to not foun 404
   public getOne(id: string): Observable<Product> {
     let product = this.products.find((p) => p.id == id);
@@ -73,5 +90,25 @@ export class ProductService {
       return of(true);
     }
     return throwError(() => new Error('Product not found !!'));
+  }
+  public search(
+    keyword: string,
+    page: number,
+    size: number
+  ): Observable<PageProduct> {
+    let result = this.products.filter((p) => p.name.includes(keyword));
+
+    let totalPages = ~~(result.length / size);
+    let index = page * size;
+    if (result.length % size != 0) totalPages++;
+
+    let pageProducts = result.slice(index, index + size);
+    let pageProduct: PageProduct = {
+      page: page,
+      size: size,
+      totalPages: totalPages,
+      products: pageProducts,
+    };
+    return of(pageProduct);
   }
 }

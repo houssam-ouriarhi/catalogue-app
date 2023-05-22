@@ -7,6 +7,8 @@ import { NavigationComponent } from './components/shared/navigation/navigation.c
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { ProductService } from './services/product.service';
+import { ProductsFormComponent } from './components/products/products-form/products-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,9 @@ import { ProductService } from './services/product.service';
     NavigationComponent,
     ProductsListComponent,
     FooterComponent,
+    ProductsFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [ProductService],
   bootstrap: [AppComponent],
 })
