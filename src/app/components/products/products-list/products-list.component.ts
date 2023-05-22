@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Product } from 'src/app/models/product';
+import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -57,7 +57,9 @@ export class ProductsListComponent {
     this.productService.delete(id);
     this.getPageProducts();
   }
+
   handelEdit(product: Product) {}
+
   handelSearchProducts() {
     let keyword = this.searchFormGroup.value.keyword;
     if (keyword == '') {

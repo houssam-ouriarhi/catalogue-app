@@ -1,4 +1,4 @@
-import { PageProduct, Product } from './../models/product';
+import { PageProduct, Product } from '../models/product.model';
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { Observable, of, throwError } from 'rxjs';

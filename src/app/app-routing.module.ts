@@ -1,11 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
 
 const routes: Routes = [
   {
-    path: 'pruducts',
-    component: ProductsListComponent,
+    path: '',
+    component: LoginComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminTemplateComponent,
+    children: [
+      {
+        path: 'products',
+        component: ProductsListComponent,
+      },
+    ],
   },
 ];
 
