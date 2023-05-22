@@ -2,3 +2,6 @@
     --bs-spinner-width: 30rem;
     --bs-spinner-height: 30rem;
 }
+.page-link{
+    cursor: pointer;
+}
