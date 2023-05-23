@@ -4,6 +4,7 @@ import { ProductsListComponent } from './components/products/products-list/produ
 import { LoginComponent } from './components/login/login.component';
 import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { ProductsFormComponent } from './components/products/products-form/products-form.component';
 
 const routes: Routes = [
   {
