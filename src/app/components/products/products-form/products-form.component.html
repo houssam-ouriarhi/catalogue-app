@@ -1,1 +1,45 @@
-<form [formGroup]="productFormGroup"></form>
+<div class="container d-flex justify-content-center">
+  <div class="row col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="text-center">
+          {{ editMode ? "Edit Product" : "Add Product" }}
+        </h1>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ editMode ? "Edit product: " + product.name : "Add new product" }}
+        </h5>
+        <hr />
+        <form [formGroup]="productFormGroup">
+          <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label col-form-label-sm"
+              >Name</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="name"
+                placeholder="Enter product name here"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="price" class="col-sm-2 col-form-label col-form-label-sm"
+              >Price</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="number"
+                class="form-control form-control-sm"
+                id="price"
+                placeholder="Enter product price here"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

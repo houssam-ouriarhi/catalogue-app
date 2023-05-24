@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -27,7 +28,8 @@ export class ProductsListComponent {
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,16 @@ export class ProductsListComponent {
         this.isLoading = false;
       });
   }
+  public handelNewProduct() {
+    this.router.navigateByUrl('/admin/add');
+  }
+  handelEdit(product: Product) {
+    let id: string | undefined;
+    id = product.id;
+    id != undefined
+      ? this.router.navigateByUrl(`/admin/edit/${id}`)
+      : this.router.navigateByUrl('/admin/products');
+  }
   public handelPromotion(id: string) {
     this.productService.setPromotion(id);
   }
@@ -61,8 +73,6 @@ export class ProductsListComponent {
     this.productService.delete(id);
     this.getPageProducts();
   }
-
-  handelEdit(product: Product) {}
 
   handelSearchProducts() {
     let keyword = this.searchFormGroup.value.keyword;

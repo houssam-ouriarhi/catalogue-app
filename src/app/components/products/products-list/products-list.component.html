@@ -9,6 +9,15 @@
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-end mb-2">
+        <button
+          *ngIf="isAdmin"
+          class="btn btn-primary"
+          (click)="handelNewProduct()"
+        >
+          Add new Product
+        </button>
+      </div>
       <form [formGroup]="searchFormGroup" (ngSubmit)="handelSearchProducts()">
         <div class="input-group mb-2">
           <span class="input-group-text">Keyword</span>
