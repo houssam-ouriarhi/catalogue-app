@@ -11,6 +11,14 @@
           {{ editMode ? "Edit product: " + product.name : "Add new product" }}
         </h5>
         <hr />
+        <div
+          *ngIf="errorMessage != undefined"
+          class="alert alert-danger d-flex align-items-center"
+          role="alert"
+        >
+          <i class="bi bi-exclamation-triangle mx-2"></i>
+          <div>{{ errorMessage }}</div>
+        </div>
         <form
           [formGroup]="productFormGroup"
           (ngSubmit)="editMode ? handelUpdate() : handleAdding()"

@@ -17,6 +17,7 @@ import { Product } from 'src/app/models/product.model';
 })
 export class ProductsFormComponent {
   private sub$: Subscription | undefined;
+  public errorMessage!: string;
   public editMode: boolean = false;
   public product!: Product;
   public productId!: string;
@@ -57,10 +58,12 @@ export class ProductsFormComponent {
     });
   }
   handleAdding() {
-    let product: Product = this.productFormGroup.value;
-    this.sub$ = this.productService.addOne(product).subscribe((data) => {
-      this.router.navigateByUrl('/admin/products');
-    });
+    if (this.productFormGroup.valid) {
+      let product: Product = this.productFormGroup.value;
+      this.sub$ = this.productService.addOne(product).subscribe((data) => {
+        this.router.navigateByUrl('/admin/products');
+      });
+    } else this.errorMessage = 'Fill the fields below.';
   }
   handelUpdate() {
     let product: Product = this.productFormGroup.value;
