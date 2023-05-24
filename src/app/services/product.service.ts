@@ -73,6 +73,7 @@ export class ProductService {
   }
   //verifier this one also
   public addOne(product: Product): Observable<boolean> {
+    product.id = UUID.UUID();
     this.products.push(product);
     return of(true);
   }
@@ -81,7 +82,6 @@ export class ProductService {
     this.products = this.products.filter((p) => p.id != id);
     return of(true);
   }
-
   public setPromotion(id: string): Observable<boolean> {
     // let product = this.getOne(id);
     let product = this.products.find((p) => p.id == id);
