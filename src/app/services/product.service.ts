@@ -78,6 +78,13 @@ export class ProductService {
     return of(true);
   }
 
+  public update(product: Product): Observable<Product> {
+    this.products = this.products.map((p) =>
+      p.id == product.id ? product : p
+    );
+    return of(product);
+  }
+
   public delete(id: string): Observable<boolean> {
     this.products = this.products.filter((p) => p.id != id);
     return of(true);

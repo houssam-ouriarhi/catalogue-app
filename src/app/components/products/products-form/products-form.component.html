@@ -11,7 +11,10 @@
           {{ editMode ? "Edit product: " + product.name : "Add new product" }}
         </h5>
         <hr />
-        <form [formGroup]="productFormGroup">
+        <form
+          [formGroup]="productFormGroup"
+          (ngSubmit)="editMode ? handelUpdate() : handleAdding()"
+        >
           <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label col-form-label-sm"
               >Name</label
@@ -22,9 +25,26 @@
                 class="form-control form-control-sm"
                 id="name"
                 placeholder="Enter product name here"
+                formControlName="name"
+                autocomplete="off"
               />
+              <small
+                *ngIf="
+                  productFormGroup.controls['name'].errors &&
+                  productFormGroup.controls['name'].touched
+                "
+                class="text-danger"
+              >
+                {{
+                  getErrorMessage(
+                    "name",
+                    productFormGroup.controls["name"].errors
+                  )
+                }}
+              </small>
             </div>
           </div>
+
           <div class="row mb-3">
             <label for="price" class="col-sm-2 col-form-label col-form-label-sm"
               >Price</label
@@ -35,8 +55,49 @@
                 class="form-control form-control-sm"
                 id="price"
                 placeholder="Enter product price here"
+                formControlName="price"
+                autocomplete="off"
+              />
+              <small
+                *ngIf="
+                  productFormGroup.controls['price'].errors &&
+                  productFormGroup.controls['price'].touched
+                "
+                class="text-danger"
+              >
+                {{
+                  getErrorMessage(
+                    "price",
+                    productFormGroup.controls["price"].errors
+                  )
+                }}
+              </small>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="form-check form-switch">
+              <label class="form-check-label" for="promotion">
+                Promotion
+              </label>
+              <input
+                formControlName="promotion"
+                class="form-check-input"
+                type="checkbox"
+                id="promotion"
               />
             </div>
+          </div>
+          <div class="row mb-3">
+            <button
+              [ngClass]="editMode ? 'btn-warning' : 'btn-success'"
+              class="btn"
+              type="submit"
+            >
+              {{ editMode ? "Update" : "Add" }}
+            </button>
+            <a class="btn btn-link" routerLink="/admin/products"
+              >Back tp product list</a
+            >
           </div>
         </form>
       </div>
