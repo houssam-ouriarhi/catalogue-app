@@ -76,11 +76,13 @@ export class ProductsListComponent {
 
   handelSearchProducts() {
     let keyword = this.searchFormGroup.value.keyword;
-    if (keyword == '') {
+
+    if (keyword == '' || keyword == null) {
+      this.currentAction = 'all';
       this.getPageProducts();
       return;
     }
-    this.curentPage = 0;
+
     this.currentAction = 'search';
     this.sub$ = this.productService
       .search(keyword, this.curentPage, this.pageSize)
